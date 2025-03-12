@@ -65,13 +65,15 @@ const Shop = () => {
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
-            <button
-              className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition duration-200 cursor-pointer"
-              onClick={searchProduct}
-            >
-              Search
-            </button>
-            {isSearched && (
+
+            {!isSearched ? (
+              <button
+                className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition duration-200 cursor-pointer"
+                onClick={searchProduct}
+              >
+                Search
+              </button>
+            ) : (
               <button
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200 cursor-pointer"
                 onClick={clearSearch}
