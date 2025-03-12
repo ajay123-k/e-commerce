@@ -60,7 +60,7 @@ const Login = () => {
             >
               Login
             </button>
-            <div className="my-2">
+            <div className="my-2 text-sm">
               New user{" "}
               <Link className="text-blue-600" to={"/register"}>
                 Register
