@@ -9,7 +9,8 @@ import { Footer } from "./Footer";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const { contextProduct, setContextProduct } = useContext(ProductContext);
-
+  const [value, setValue] = useState("");
+  const [isSearched, setIsSearched] = useState(false);
   useEffect(() => {
     document.title = "MyShop | Products";
     if (contextProduct.length > 0) {
@@ -22,6 +23,21 @@ const Shop = () => {
     });
   }, []);
 
+  const searchProduct = () => {
+    if (!value.trim()) return;
+
+    const filteredProducts = products.filter((p) =>
+      p.title.toLowerCase().includes(value.toLowerCase())
+    );
+    setProducts(filteredProducts);
+    setIsSearched(true);
+  };
+
+  const clearSearch = () => {
+    setProducts(contextProduct);
+    setValue("");
+    setIsSearched(false);
+  };
   return (
     <>
       <Navbar />
@@ -40,6 +56,32 @@ const Shop = () => {
 
         {/* All Products Section */}
         <h2 className="text-3xl font-bold mb-6 capitalize">All Products</h2>
+        <div className="flex w-full justify-center lg:justify-end p-4">
+          <div className="flex items-center space-x-2 bg-white p-2 rounded shadow-md">
+            <input
+              type="text"
+              className="py-2 px-4 border border-gray-300 text-black rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Search products..."
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+            />
+            <button
+              className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition duration-200 cursor-pointer"
+              onClick={searchProduct}
+            >
+              Search
+            </button>
+            {isSearched && (
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200 cursor-pointer"
+                onClick={clearSearch}
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </div>
+
         {products.length > 0 ? (
           <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6">
             {products.map((product, index) => (
@@ -48,7 +90,20 @@ const Shop = () => {
           </div>
         ) : (
           <p className="text-gray-500 text-center mt-10 text-lg">
-            Products Loading..
+            {isSearched ? (
+              <div className="flex flex-col items-center justify-center text-center p-8">
+                <img
+                  src="/empty-box.png"
+                  alt="No products found"
+                  className="w-40 h-40 object-contain"
+                />
+                <p className="text-gray-500 text-lg mt-4">
+                  Oops! No products match your search. Try something else!
+                </p>
+              </div>
+            ) : (
+              " Products Loading.."
+            )}
           </p>
         )}
         {/* All Products Section */}

@@ -59,7 +59,7 @@ const CartPage = () => {
         {cartItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-10">
             <img
-              src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
+              src="/cart.png"
               alt="Empty Cart"
               className="w-32 h-32 opacity-50"
             />
