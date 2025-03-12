@@ -20,6 +20,11 @@ const Login = () => {
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const user = users.find((u) => u.email === email);
+
+    if (!user) {
+      alert("User details not found");
+      return;
+    }
     const hashPwd = await bcryptJs.compare(password, user.password);
 
     if (user && hashPwd) {
