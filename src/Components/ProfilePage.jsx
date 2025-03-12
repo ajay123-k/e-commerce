@@ -20,8 +20,6 @@ const ProfilePage = () => {
   // Function to handle user logout
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("users");
-    localStorage.removeItem("cart");
     navigate("/");
   };
 

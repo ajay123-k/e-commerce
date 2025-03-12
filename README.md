@@ -10,7 +10,9 @@ This is a full-fledged E-Commerce website built with React and Tailwind CSS, usi
 
 ✔ Shopping Cart with Live Price Calculation
 
-✔ User Authentication (LocalStorage-based Login)
+✔ User Authentication (LocalStorage-based Login & Registration)
+
+✔ Hash passwords using bcryptjs library
 
 ✔ User Profile Page with Avatar & Account Details
 

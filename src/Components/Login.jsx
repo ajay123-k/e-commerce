@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import bcryptJs from "bcryptjs";
 
 const Login = () => {
-  const [email, setEmail] = useState("user@test.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,22 +15,20 @@ const Login = () => {
       navigate("/");
     }
   }, []);
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    let user = {
-      email,
-      password,
-      name: "User",
-    };
 
-    localStorage.setItem("loggedInUser", JSON.stringify(user));
-    alert("Login successful!");
-    let checkout = localStorage.getItem("isCheckoutCliked");
-    if (checkout === "true") {
-      navigate("/cart");
-      return;
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find((u) => u.email === email);
+    const hashPwd = await bcryptJs.compare(password, user.password);
+
+    if (user && hashPwd) {
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+      alert("Login successful!");
+      navigate("/");
+    } else {
+      alert("Invalid credentials. Please try again.");
     }
-    navigate("/");
   };
 
   return (
@@ -45,7 +44,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full border p-2 mb-2"
-              readOnly
+              required
             />
             <input
               type="password"
@@ -53,7 +52,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full border p-2 mb-4"
-              readOnly
+              required
             />
             <button
               type="submit"
@@ -61,6 +60,12 @@ const Login = () => {
             >
               Login
             </button>
+            <div className="my-2">
+              New user{" "}
+              <Link className="text-blue-600" to={"/register"}>
+                Register
+              </Link>
+            </div>
           </form>
         </div>
       </div>

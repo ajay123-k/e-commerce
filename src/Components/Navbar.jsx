@@ -18,7 +18,6 @@ const Navbar = () => {
   // Function to handle user logout
   const logout = () => {
     localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("users");
     localStorage.removeItem("cart");
     setDropdownOpen(false);
     navigate("/");
