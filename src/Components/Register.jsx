@@ -68,7 +68,7 @@ const Register = () => {
             />
             <button
               type="submit"
-              className="w-full bg-black text-white py-2 rounded"
+              className="w-full bg-black text-white py-2 rounded cursor-pointer"
             >
               Register
             </button>
