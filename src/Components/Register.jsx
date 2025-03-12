@@ -38,7 +38,7 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center mt-15">
+      <div className="flex justify-center items-center mt-15 p-5">
         <div className="bg-white p-8 shadow-lg rounded">
           <h2 className="text-2xl font-bold mb-4">Register</h2>
           <form onSubmit={handleRegister}>
